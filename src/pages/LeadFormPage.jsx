@@ -48,7 +48,7 @@ const LeadFormPage = () => {
 
     try {
       /* ---- send to backend ---- */
-      await axios.post("${process.env.REACT_APP_API_URL}/api/lead", formData, {
+        await axios.post(`${process.env.REACT_APP_API_URL}/lead`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
