@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api/estimatebill";
+const BASE_URL = "https://vercel-backend-1l0u.onrender.com/api/estimatebill";
 
 export const generateEstimatePDF = async (data) => {
   try {
