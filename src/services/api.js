@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api", // change if backend is hosted elsewhere
+  baseURL: "https://vercel-backend-1l0u.onrender.com/api", // Render backend base URL
 });
 
 api.interceptors.request.use((config) => {
