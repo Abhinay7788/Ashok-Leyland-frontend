@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://vercel-backend-1l0u.onrender.com/api", // Render backend base URL
+  baseURL: "https://vercel-backend-1l0u.onrender.com/api",
 });
 
 api.interceptors.request.use((config) => {
