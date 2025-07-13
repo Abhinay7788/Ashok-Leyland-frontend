@@ -1,0 +1,12 @@
+/* src/styles/navbar.css */
+.navbar {
+  background-color: var(--primary);
+  color: var(--text-light);
+  padding: 12px 20px;
+}
+
+.navbar a {
+  color: white;
+  margin-right: 16px;
+  font-weight: bold;
+}

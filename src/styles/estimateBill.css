@@ -1,0 +1,44 @@
+.estimate-bill-form {
+  padding: 30px;
+  max-width: 1000px;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.estimate-bill-form h2 {
+  text-align: center;
+  color: #004aad;
+}
+
+.estimate-bill-form h3 {
+  margin-top: 30px;
+  color: #222;
+}
+
+.estimate-bill-form input {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.table-row, .tax-summary-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.add-row-btn, .download-btn {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: #004aad;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+}

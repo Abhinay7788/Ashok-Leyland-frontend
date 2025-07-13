@@ -1,0 +1,17 @@
+/* src/styles/login.css */
+.login-page {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary);
+}
+
+.login-box {
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}

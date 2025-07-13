@@ -1,0 +1,26 @@
+/* src/styles/table.css */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+}
+
+th {
+  background-color: #f0f0f0;
+  text-align: left;
+}
+
+tr.green { background-color: var(--success); }
+tr.yellow { background-color: var(--warning); }
+tr.red { background-color: var(--danger); }
+
+.score-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: white;
+}
