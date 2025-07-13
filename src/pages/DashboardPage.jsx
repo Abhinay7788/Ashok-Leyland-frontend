@@ -1,10 +1,10 @@
-// src/pages/DashboardPage.jsx
 
+// src/pages/DashboardPage.jsx
 import React, { useEffect, useState, useCallback } from "react";
-import axios from "axios";
 import DashboardChart from "../components/DashboardChart";
 import FilterPanel from "../components/FilterPanel";
 import LeadTable from "../components/LeadTable";
+import api from "../services/api";
 
 const DashboardPage = () => {
   const [leads, setLeads] = useState([]);
@@ -20,15 +20,10 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const token = localStorage.getItem("token");
-
-  // ✅ Fetch all leads
   const fetchLeads = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get("/api/lead/all", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await api.get("/lead");
       setLeads(response.data || []);
       setError("");
     } catch (err) {
@@ -37,9 +32,8 @@ const DashboardPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, []);
 
-  // ✅ Filter logic
   const applyFilters = useCallback(() => {
     const { type, status, scoreMin, scoreMax, startDate, endDate } = filters;
     let result = [...leads];
@@ -47,7 +41,7 @@ const DashboardPage = () => {
     if (type !== "All") {
       result = result.filter(
         (lead) =>
-          (lead.type || lead.category || "").toLowerCase() === type.toLowerCase()
+          (lead.type || "").toLowerCase() === type.toLowerCase()
       );
     }
 
@@ -78,12 +72,10 @@ const DashboardPage = () => {
     setFilteredLeads(result);
   }, [filters, leads]);
 
-  // ✅ Resend email
   const handleResendEmail = async (id) => {
+    if (!id) return alert("Invalid lead ID");
     try {
-      await axios.post(`/api/lead/resend/${id}`, {}, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await api.post(`/lead/resend/${id}`);
       alert("📧 Email resent successfully!");
     } catch (err) {
       console.error("Resend email error:", err);
@@ -91,13 +83,11 @@ const DashboardPage = () => {
     }
   };
 
-  // ✅ Delete lead
   const handleDelete = async (id) => {
+    if (!id) return alert("Invalid lead ID");
     if (!window.confirm("Delete this lead?")) return;
     try {
-      await axios.delete(`/api/lead/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await api.delete(`/lead/${id}`);
       alert("🗑️ Lead deleted successfully!");
       fetchLeads();
     } catch (err) {
@@ -106,17 +96,12 @@ const DashboardPage = () => {
     }
   };
 
-  // ✅ Download Excel with filters
   const handleExcelDownload = async () => {
     try {
       const queryParams = new URLSearchParams(filters);
-      const response = await axios.get(
-        `/api/lead/download/excel?${queryParams.toString()}`,
-        {
-          responseType: "blob",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await api.get(`/lead/download/excel?${queryParams.toString()}`, {
+        responseType: "blob",
+      });
 
       const blob = new Blob([response.data], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -134,7 +119,6 @@ const DashboardPage = () => {
     }
   };
 
-  // ✅ Hooks
   useEffect(() => {
     fetchLeads();
   }, [fetchLeads]);
@@ -143,7 +127,6 @@ const DashboardPage = () => {
     applyFilters();
   }, [applyFilters]);
 
-  // ✅ Render
   return (
     <div
       style={{
